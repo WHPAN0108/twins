@@ -51,3 +51,5 @@ ggplot(DF,aes(x =Bray1 , y = Bray2,color=condition))+ geom_point(size=5)+geom_li
   ggtitle("Pcoa Bray distance")+xlab("Bray1 22.89%")+ylab("Bray2 16.47%")
 
 #ggplot(DD,aes(x =Jacc1 , y = Jacc2,color=Week))+ geom_point(size=3)+ggtitle("Jacc")+facet_grid(Organ~.) 
+##
+

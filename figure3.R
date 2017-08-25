@@ -77,3 +77,4 @@ GE_plot<-ggplot(aes(y=Gene_Expression,x=condition,fill=condition),data=GE_DM)+
   geom_boxplot()+ theme(legend.position="bottom")
 
 ggarrange(COR_plot, GE_plot,ncol = 2, nrow = 1)
+#
