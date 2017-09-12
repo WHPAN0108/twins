@@ -48,7 +48,11 @@ DF<-data.frame(DF,Bray1=bray_pcoa$vectors[,1],Bray2=bray_pcoa$vectors[,2],
                Bray3=bray_pcoa$vectors[,3],Jacc1=jacc_pcoa$vectors[,1],Jacc2=jacc_pcoa$vectors[,2],Jacc3=jacc_pcoa$vectors[,3])
 
 ggplot(DF,aes(x =Bray1 , y = Bray2,color=condition))+ geom_point(size=5)+geom_line(aes(group=paired),color="steelblue")+
-  ggtitle("Pcoa Bray distance")+xlab("Bray1 22.89%")+ylab("Bray2 16.47%")
+  ggtitle("Pcoa Bray distance")+xlab("Bray1 22.89%")+ylab("Bray2 16.47%")+theme_bw()+ 
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+        axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
+        plot.title = element_text(hjust = 0.5,size=30))
 
 #ggplot(DD,aes(x =Jacc1 , y = Jacc2,color=Week))+ geom_point(size=3)+ggtitle("Jacc")+facet_grid(Organ~.) 
 ##

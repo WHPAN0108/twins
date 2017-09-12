@@ -70,11 +70,20 @@ DM_cg02813121<-melt(DM_cg02813121,value.name = "methylation",variable.name = "sa
 DM_cg02813121$sampleID<-gsub("X","",DM_cg02813121$sampleID)
 
 GE_DM<-merge(DM_cg02813121,GE_S100A8,by="sampleID",all=T)
-GE_DM$condition<-ifelse(grepl("A",GE_DM$sampleID),"H","UC")
+GE_DM$condition<-ifelse(grepl("A",GE_DM$sampleID),"Healthy","UC")
 COR_plot<-ggplot(aes(y=Gene_Expression,x=methylation,color=condition),data=GE_DM)+
-  geom_point(size=3)+ theme(legend.position="bottom")
+  geom_point(size=5)+ theme(legend.position="bottom")+theme_bw()+ 
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+        axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
+        legend.position="none",plot.title = element_text(hjust = 0.5,size=30))
+
 GE_plot<-ggplot(aes(y=Gene_Expression,x=condition,fill=condition),data=GE_DM)+
-  geom_boxplot()+ theme(legend.position="bottom")
+  geom_boxplot()+ theme(legend.position="bottom")+theme_bw()+ 
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+        axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
+        legend.position="none",plot.title = element_text(hjust = 0.5,size=30))
 
 ggarrange(COR_plot, GE_plot,ncol = 2, nrow = 1)
 #
