@@ -22,11 +22,11 @@ ALL_sign[DOWN,"upwtest.intersect.up_sig..fc_sig.."]
 colnames(ALL_sign)[grepl("GCRMA",colnames(ALL_sign))]
 label_x<-gsub("(\\d+).*", "\\1", colnames(ALL_sign)[grepl("GCRMA",colnames(ALL_sign))])
 label_x<-gsub("NC","H",label_x)
-col_side<-(rep(c("darkgreen","orange"),each=10))
+col_side<-(rep(c("#EC746E","#2EB5BB"),each=10))
 
-GEvalue<-ALL_sign[,grepl("GCRMA",colnames(ALL_sign))]
-GEvalue50<-as.matrix(GEvalue)[c(UP,DOWN),]
-GEvalue50<-t(apply(GE_value,1,scale))
+GEvalue<-ALL_sign[c(UP,DOWN),grepl("GCRMA",colnames(ALL_sign))]
+GEvalue50<-t(apply(GEvalue,1,scale))
+dim(GEvalue50)
 
 heatmap.2(GEvalue50,scale="row",col = rev(redblue(11)),trace="none",
           labRow = ALL_sign$Gene.Symbol[c(UP,DOWN)],labCol = label_x,

@@ -71,19 +71,31 @@ DM_cg02813121$sampleID<-gsub("X","",DM_cg02813121$sampleID)
 
 GE_DM<-merge(DM_cg02813121,GE_S100A8,by="sampleID",all=T)
 GE_DM$condition<-ifelse(grepl("A",GE_DM$sampleID),"Healthy","UC")
-COR_plot<-ggplot(aes(y=Gene_Expression,x=methylation,color=condition),data=GE_DM)+
-  geom_point(size=5)+ theme(legend.position="bottom")+theme_bw()+ 
+
+model <- lm(log(Gene_Expression)~methylation, data=GE_DM)
+
+COR_plot<-ggplot(aes(y=log(Gene_Expression),x=methylation),data=GE_DM)+
+  geom_point(size=5,aes(color=condition))+ theme(legend.position="bottom")+theme_bw()+ 
+  geom_smooth(method=lm, se=FALSE,color="black",linetype="dashed")+
   theme(panel.border = element_blank(), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
         axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
         legend.position="none",plot.title = element_text(hjust = 0.5,size=30))
+  
 
 GE_plot<-ggplot(aes(y=Gene_Expression,x=condition,fill=condition),data=GE_DM)+
-  geom_boxplot()+ theme(legend.position="bottom")+theme_bw()+ 
+  geom_boxplot()+ theme(legend.position="bottom")+theme_bw()+ xlab(" ")+ylab("gene expression level")+
   theme(panel.border = element_blank(), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
         axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
         legend.position="none",plot.title = element_text(hjust = 0.5,size=30))
 
-ggarrange(COR_plot, GE_plot,ncol = 2, nrow = 1)
+ME_plot<-ggplot(aes(y=methylation,x=condition,fill=condition),data=GE_DM)+
+  geom_boxplot()+ theme(legend.position="bottom")+theme_bw()+ xlab(" ")+ylab("DNA methylation level")+
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+        axis.text=element_text(size=18),axis.title.y = element_text(size=20),axis.title.x = element_text(size=20),
+        legend.position="none",plot.title = element_text(hjust = 0.5,size=30))
+
+ggarrange(ME_plot, GE_plot,ncol = 2, nrow = 1)
 #
