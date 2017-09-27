@@ -99,3 +99,4 @@ ME_plot<-ggplot(aes(y=methylation,x=condition,fill=condition),data=GE_DM)+
 
 ggarrange(ME_plot, GE_plot,ncol = 2, nrow = 1)
 #
+wilcox.test(Gene_Expression~condition, data=GE_DM)
